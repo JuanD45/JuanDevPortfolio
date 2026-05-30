@@ -367,6 +367,23 @@
     footer a { color: var(--accent); text-decoration: none; }
     .footer-socials { display: flex; gap: 12px; }
 
+    /* ──────── SCROLL REVEAL ──────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .projects-grid [data-reveal]:nth-child(2) { transition-delay: 0.1s; }
+    .projects-grid [data-reveal]:nth-child(3) { transition-delay: 0.2s; }
+    .certs-grid [data-reveal]:nth-child(2) { transition-delay: 0.1s; }
+    .certs-grid [data-reveal]:nth-child(3) { transition-delay: 0.2s; }
+    .certs-grid [data-reveal]:nth-child(4) { transition-delay: 0.3s; }
+
     /* ──────── RESPONSIVE ──────── */
     @media (max-width: 768px) {
       .sobre-grid,
@@ -426,7 +443,7 @@
 </section>
 
 <!-- SOBRE MÍ -->
-<section id="sobre">
+<section id="sobre" data-reveal="fadeUp">
   <div class="sobre-grid">
     <div class="sobre-avatar">JDEV</div>
     <div class="sobre-text">
@@ -458,13 +475,13 @@
 </section>
 
 <!-- PROYECTOS / GIT -->
-<section id="git">
+<section id="git" data-reveal="fadeUp">
   <p class="section-label">My Projects</p>
   <h2 class="section-title">My project on GitHub</h2>
   <div class="divider"></div>
   <p class="section-subtitle">Projects I've built to develop my skills and gain real-world experience.</p>
   <div class="projects-grid">
-    <a href="https://github.com/JuanD45/TASK_BOARD_PROJECT" target="_blank" class="project-card">
+    <a href="https://github.com/JuanD45/TASK_BOARD_PROJECT" target="_blank" class="project-card" data-reveal="fadeUp">
       <div class="project-icon">📋</div>
       <div class="project-title">My Task Board</div>
       <p class="project-desc">Tablero de tareas interactivo. Agrega, edita y elimina tareas con persistencia en localStorage.</p>
@@ -475,7 +492,7 @@
       </div>
       <span class="project-link">View on GitHub →</span>
     </a>
-    <a href="#" class="project-card">
+    <a href="#" class="project-card" data-reveal="fadeUp">
       <div class="project-icon">🌐</div>
       <div class="project-title">Personal Portfolio</div>
       <p class="project-desc">A responsive personal portfolio website built to showcase my projects, skills, and professional growth, featuring smooth navigation and a clean user interface.</p>
@@ -485,7 +502,7 @@
       </div>
       <span class="project-link">View demo →</span>
     </a>
-    <a href="#" class="project-card">
+    <a href="#" class="project-card" data-reveal="fadeUp">
       <div class="project-icon">🎨</div>
       <div class="project-title">Próximo proyecto</div>
       <p class="project-desc">Actualmente trabajando en el siguiente reto de devchallenges.io. ¡Pronto disponible!</p>
@@ -498,13 +515,13 @@
 </section>
 
 <!-- CERTIFICACIONES -->
-<section id="certificaciones">
+<section id="certificaciones" data-reveal="fadeUp">
   <p class="section-label">Learning</p>
   <h2 class="section-title">Certificates</h2>
   <div class="divider"></div>
   <p class="section-subtitle">Courses and certifications I have completed to strengthen my technical skills and continue growing as a software developer.</p>
   <div class="certs-grid">
-    <div class="cert-card">
+    <div class="cert-card" data-reveal="fadeUp">
       <div class="cert-badge">🏅</div>
       <div>
         <div class="cert-name">English B2+</div>
@@ -512,7 +529,7 @@
         <span class="cert-year">2015 – 2019</span>
       </div>
     </div>
-    <div class="cert-card">
+    <div class="cert-card" data-reveal="fadeUp">
       <div class="cert-badge">📜</div>
       <div>
         <div class="cert-name">Power BI for Data Analysis</div>
@@ -520,7 +537,7 @@
         <span class="cert-year">2026</span>
       </div>
     </div>
-    <div class="cert-card">
+    <div class="cert-card" data-reveal="fadeUp">
       <div class="cert-badge">⚡</div>
       <div>
         <div class="cert-name">JavaScript</div>
@@ -528,7 +545,7 @@
         <span class="cert-year">2026</span>
       </div>
     </div>
-    <div class="cert-card">
+    <div class="cert-card" data-reveal="fadeUp">
       <div class="cert-badge">🔧</div>
       <div>
         <div class="cert-name">Git & GitHub</div>
@@ -540,7 +557,7 @@
 </section>
 
 <!-- CONTACTO -->
-<section id="contacto">
+<section id="contacto" data-reveal="fadeUp">
   <p class="section-label">Let's talk</p>
   <h2 class="section-title">Contact</h2>
   <div class="divider"></div>
@@ -606,6 +623,22 @@
     </a>
   </div>
 </footer>
+
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>
